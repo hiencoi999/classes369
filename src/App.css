@@ -32,11 +32,43 @@
   color: #282c34;
 }
 
-@keyframes App-logo-spin {
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.authenticator {
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#logo {
+  width: 200px;
+  height: 200px;
+}
+
+#amplify-authenticator__subtitle {
+  color: white;
+}
+
+#sign-out-btn {
+  position: fixed;
+  right: 5%;
+  top: 5%;
+}
+
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
