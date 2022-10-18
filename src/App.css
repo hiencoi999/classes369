@@ -1,16 +1,7 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  height: 100%;
+  width: 100%;
 }
 
 .App-header {
@@ -43,32 +34,17 @@
 .authenticator {
   position: fixed;
   margin: auto;
-  top: 0;
+  top: 300px;
   right: 0;
   bottom: 0;
   left: 0;
 }
 
-#logo {
-  width: 200px;
-  height: 200px;
-}
+
+
+
+
 
 #amplify-authenticator__subtitle {
   color: white;
 }
-
-#sign-out-btn {
-  position: fixed;
-  right: 5%;
-  top: 5%;
-}
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

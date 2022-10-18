@@ -17,7 +17,7 @@ import '../../App.css';
 // @ts-ignore
 import videoBackground from './assets/background.mp4';
 // @ts-ignore
-import logo from './assets/logo.png';
+import logo from '../homepage/assets/logo.png';
 I18n.putVocabularies(translations);
 I18n.setLanguage('vi');
 I18n.putVocabularies({
@@ -56,15 +56,15 @@ const formFields = {
 };
 
 const components = {
-  Header() {
-    const { tokens } = useTheme();
+  // Header() {
+  //   const { tokens } = useTheme();
 
-    return (
-      <View textAlign="center" padding={tokens.space.large}>
-        <Image alt="Classes369 logo" src={logo} id="logo" />
-      </View>
-    );
-  },
+  //   return (
+  //     <View textAlign="center" padding={tokens.space.small}>
+  //       <Image alt="Classes369 logo" src={logo} id="logo" />
+  //     </View>
+  //   );
+  // },
 
   Footer() {
     const { tokens } = useTheme();
@@ -80,7 +80,13 @@ const components = {
     Header() {
       const { tokens } = useTheme();
 
-      return <Heading padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`} level={3}></Heading>;
+      return (
+        <Heading padding={`${tokens.space.xl} 0 0 0`} level={3}>
+          <View textAlign="center">
+            <Image alt="Classes369 logo" src={logo} style={{ height: '200px' }} />
+          </View>
+        </Heading>
+      );
     },
     Footer() {
       const { toResetPassword } = useAuthenticator();
@@ -99,7 +105,13 @@ const components = {
     Header() {
       const { tokens } = useTheme();
 
-      return <Heading padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`} level={3}></Heading>;
+      return (
+        <Heading padding={`${tokens.space.xl} 0 0 0`} level={3}>
+          {/* <View textAlign="center">
+            <Image alt="Classes369 logo" src={logo} style={{ height: '200px' }} />
+          </View> */}
+        </Heading>
+      );
     },
     Footer() {
       const { toSignIn } = useAuthenticator();

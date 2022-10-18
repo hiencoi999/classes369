@@ -1,27 +1,11 @@
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { BellFilled, FundFilled, MessageFilled, PoweroffOutlined, UserOutlined } from '@ant-design/icons';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Button, Image, Layout, Menu } from 'antd';
 import { Auth, Cache } from 'aws-amplify';
-import React, { createElement } from 'react';
+import React from 'react';
+import logo from './assets/logo.png';
 import './homepage.css';
-const { Header, Content, Sider } = Layout;
-
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-
-  return {
-    key: `sub${key}`,
-    icon: createElement(icon),
-    label: `subnav ${key}`,
-
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`
-      };
-    })
-  };
-});
+const { Header, Content } = Layout;
 
 async function signOut() {
   try {
@@ -32,46 +16,46 @@ async function signOut() {
 }
 
 export default function Homepage() {
+  const { user } = useAuthenticator((context) => [context.user]);
   console.log(Cache.getAllKeys());
   return (
-    <Layout>
+    <Layout className="homepage-layout">
       <Header className="header">
-        <div className="logo" />
-        <Menu mode="horizontal" theme="dark">
-          <Menu.Item>1</Menu.Item>
-          <Menu.Item>2</Menu.Item>
-          <Menu.Item>3</Menu.Item>
-          <Menu.Item onClick={signOut}>Sign Out</Menu.Item>
+        <Menu mode="horizontal" theme="dark" className="menu">
+          <Image src={logo} id="logo" preview={false} />
+          <Menu.Item className="menu-item">
+            <BellFilled className="item-icon" />
+            Thông báo
+          </Menu.Item>
+          <Menu.Item className="menu-item">
+            <MessageFilled className="item-icon" />
+            Tin nhắn
+          </Menu.Item>
+          <Menu.Item className="menu-item">
+            <FundFilled className="item-icon" />
+            Bảng biểu
+          </Menu.Item>
+          <Menu.Item className="menu-item">
+            <UserOutlined className="item-icon" />
+            Thông tin
+          </Menu.Item>
         </Menu>
-        {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} onClick={props.signOut} /> */}
+        <div id="div-sign-out-btn">
+          <Button type="danger" shape="round" icon={<PoweroffOutlined />} onClick={signOut}>
+            Đăng xuất
+          </Button>
+        </div>
       </Header>
-      <Layout>
-        <Sider width={200} className="site-layout-background">
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{ height: '100%', borderRight: 0 }}
-            items={items2}
-          />
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}>
-            Content
-          </Content>
-        </Layout>
-      </Layout>
+
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 24,
+          margin: 0,
+          minHeight: 280
+        }}>
+        {user.email}
+      </Content>
     </Layout>
   );
 }
