@@ -4,22 +4,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AwsAuthenticator from './components/authentication/authentication';
 import Homepage from './components/homepage/homepage';
+import Notification from './components/notification/notification';
 import PageNotFound from './components/pageNotFound/pageNotFound';
+import PersonalInformation from './components/personalInformation/personalInformation';
 import PrivateRoute from './utils/private-route';
 
 export default function App() {
-  // return (
-  //   <>
-  {
-    /* {
-        <video autoPlay muted loop id="myVideo">
-          <source src={videoBackground} type="video/mp4" />
-          Your browser does not support HTML5 video.
-        </video>
-      } */
-  }
-  // </>
-  // );
   return (
     <BrowserRouter>
       <Routes>
@@ -29,8 +19,10 @@ export default function App() {
             <PrivateRoute>
               <Homepage />
             </PrivateRoute>
-          }
-        />
+          }>
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/personal-information" element={<PersonalInformation />} />
+        </Route>
         <Route path="/auth" element={<AwsAuthenticator />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -10,14 +10,14 @@ import {
   View
 } from '@aws-amplify/ui-react';
 import 'antd/dist/antd.min.css';
-import { I18n } from 'aws-amplify';
+import { API, Hub, I18n } from 'aws-amplify';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import '../../App.css';
-// @ts-ignore
-import videoBackground from './assets/background.mp4';
+import { createUser } from '../../graphql/mutations';
 // @ts-ignore
 import logo from '../homepage/assets/logo.png';
+import videoBackground from './assets/background.mp4';
 I18n.putVocabularies(translations);
 I18n.setLanguage('vi');
 I18n.putVocabularies({
@@ -43,7 +43,10 @@ I18n.putVocabularies({
     Confirm: 'Xác nhận',
     'We Emailed You': 'Gửi Mã Thành Công',
     'Enter your code': 'Nhập mã',
-    Submitting: 'Đang gửi'
+    Submitting: 'Đang gửi',
+    'We Sent A Code': 'Chúng tôi đã gửi mã',
+    'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.':
+      'Vui lòng kiểm tra hòm thư để lấy mã xác thực'
   }
 });
 
@@ -56,21 +59,11 @@ const formFields = {
 };
 
 const components = {
-  // Header() {
-  //   const { tokens } = useTheme();
-
-  //   return (
-  //     <View textAlign="center" padding={tokens.space.small}>
-  //       <Image alt="Classes369 logo" src={logo} id="logo" />
-  //     </View>
-  //   );
-  // },
-
   Footer() {
     const { tokens } = useTheme();
 
     return (
-      <View textAlign="center" padding={tokens.space.large}>
+      <View textAlign="center" padding={tokens.space.small}>
         <Text color={tokens.colors.neutral[80]}>&copy; Made by Nguyen Sinh Hien</Text>
       </View>
     );
@@ -81,7 +74,7 @@ const components = {
       const { tokens } = useTheme();
 
       return (
-        <Heading padding={`${tokens.space.xl} 0 0 0`} level={3}>
+        <Heading padding={`${tokens.space.small} 0 0 0`}>
           <View textAlign="center">
             <Image alt="Classes369 logo" src={logo} style={{ height: '200px' }} />
           </View>
@@ -106,10 +99,10 @@ const components = {
       const { tokens } = useTheme();
 
       return (
-        <Heading padding={`${tokens.space.xl} 0 0 0`} level={3}>
-          {/* <View textAlign="center">
-            <Image alt="Classes369 logo" src={logo} style={{ height: '200px' }} />
-          </View> */}
+        <Heading padding={`${tokens.space.small} 0 0 0`}>
+          <View textAlign="center">
+            <Image alt="Classes369 logo" src={logo} style={{ height: '85px' }} />
+          </View>
         </Heading>
       );
     },
@@ -161,7 +154,37 @@ const components = {
 
 export default function AwsAuthenticator() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-  console.log({ authStatus });
+
+  const createNewUser = async (userId) => {
+    console.log(userId);
+    const data = await API.graphql({
+      query: createUser,
+      variables: { input: { id: userId } }
+    });
+    console.log('tao thanh cong');
+    console.log({ data });
+  };
+
+  Hub.listen('auth', (data) => {
+    switch (data.payload.event) {
+      case 'signIn':
+        console.log('user signed in');
+        break;
+      case 'signUp':
+        console.log('dang sign up ne');
+        createNewUser(data.payload.data.userSub);
+        break;
+      case 'signOut':
+        console.log('user signed out');
+        break;
+      case 'signIn_failure':
+        console.log('user sign in failed');
+        break;
+      case 'configured':
+        console.log('the Auth module is configured');
+    }
+  });
+
   return authStatus === 'authenticated' ? (
     <Navigate to="/" />
   ) : (
