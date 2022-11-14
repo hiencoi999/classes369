@@ -13,9 +13,6 @@ export const createClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -31,9 +28,6 @@ export const updateClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -49,9 +43,6 @@ export const deleteClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -65,13 +56,9 @@ export const createClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -85,13 +72,9 @@ export const updateClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -105,13 +88,9 @@ export const deleteClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -126,9 +105,6 @@ export const createLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -143,9 +119,6 @@ export const updateLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -160,9 +133,6 @@ export const deleteLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -178,9 +148,6 @@ export const createComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -196,9 +163,6 @@ export const updateComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -214,9 +178,6 @@ export const deleteComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -232,9 +193,6 @@ export const createMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -250,9 +208,6 @@ export const updateMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -268,9 +223,6 @@ export const deleteMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -288,15 +240,10 @@ export const createPost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -314,15 +261,10 @@ export const updatePost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -340,15 +282,10 @@ export const deletePost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -365,31 +302,23 @@ export const createUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -406,31 +335,23 @@ export const updateUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -447,31 +368,23 @@ export const deleteUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

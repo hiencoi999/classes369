@@ -12,9 +12,6 @@ export const onCreateClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -29,9 +26,6 @@ export const onUpdateClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -46,9 +40,6 @@ export const onDeleteClassMember = /* GraphQL */ `
       role
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -59,13 +50,9 @@ export const onCreateClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -76,13 +63,9 @@ export const onUpdateClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -93,13 +76,9 @@ export const onDeleteClass = /* GraphQL */ `
       name
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -111,9 +90,6 @@ export const onCreateLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -125,9 +101,6 @@ export const onUpdateLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -139,9 +112,6 @@ export const onDeleteLike = /* GraphQL */ `
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -154,9 +124,6 @@ export const onCreateComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -169,9 +136,6 @@ export const onUpdateComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -184,9 +148,6 @@ export const onDeleteComment = /* GraphQL */ `
       description
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -199,9 +160,6 @@ export const onCreateMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -214,9 +172,6 @@ export const onUpdateMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -229,9 +184,6 @@ export const onDeleteMessage = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -246,15 +198,10 @@ export const onCreatePost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -269,15 +216,10 @@ export const onUpdatePost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -292,15 +234,10 @@ export const onDeletePost = /* GraphQL */ `
       mediaUrl
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -314,31 +251,23 @@ export const onCreateUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -352,31 +281,23 @@ export const onUpdateUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -390,31 +311,23 @@ export const onDeleteUser = /* GraphQL */ `
       avatarUrl
       Posts {
         nextToken
-        startedAt
       }
       Messages {
         nextToken
-        startedAt
       }
       Comments {
         nextToken
-        startedAt
       }
       Likes {
         nextToken
-        startedAt
       }
       email
       phoneNumber
       ClassMembers {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

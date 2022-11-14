@@ -122,7 +122,6 @@ export default function PersonalInformation() {
       query: updateUser,
       variables: {
         input: {
-          _version: 6,
           id: user.attributes.sub,
           email: user.attributes.email,
           phoneNumber: user.attributes.phone_number,
