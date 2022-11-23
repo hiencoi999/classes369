@@ -8,8 +8,8 @@ export const createClassMember = /* GraphQL */ `
   ) {
     createClassMember(input: $input, condition: $condition) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -23,8 +23,8 @@ export const updateClassMember = /* GraphQL */ `
   ) {
     updateClassMember(input: $input, condition: $condition) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -38,8 +38,8 @@ export const deleteClassMember = /* GraphQL */ `
   ) {
     deleteClassMember(input: $input, condition: $condition) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -102,7 +102,7 @@ export const createLike = /* GraphQL */ `
     createLike(input: $input, condition: $condition) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -116,7 +116,7 @@ export const updateLike = /* GraphQL */ `
     updateLike(input: $input, condition: $condition) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -130,7 +130,7 @@ export const deleteLike = /* GraphQL */ `
     deleteLike(input: $input, condition: $condition) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -383,6 +383,54 @@ export const deleteUser = /* GraphQL */ `
       ClassMembers {
         nextToken
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createClassInvitation = /* GraphQL */ `
+  mutation CreateClassInvitation(
+    $input: CreateClassInvitationInput!
+    $condition: ModelClassInvitationConditionInput
+  ) {
+    createClassInvitation(input: $input, condition: $condition) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateClassInvitation = /* GraphQL */ `
+  mutation UpdateClassInvitation(
+    $input: UpdateClassInvitationInput!
+    $condition: ModelClassInvitationConditionInput
+  ) {
+    updateClassInvitation(input: $input, condition: $condition) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteClassInvitation = /* GraphQL */ `
+  mutation DeleteClassInvitation(
+    $input: DeleteClassInvitationInput!
+    $condition: ModelClassInvitationConditionInput
+  ) {
+    deleteClassInvitation(input: $input, condition: $condition) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
       createdAt
       updatedAt
     }

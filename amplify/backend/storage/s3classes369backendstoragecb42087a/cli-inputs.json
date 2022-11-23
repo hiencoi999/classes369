@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3classes369backendstoragecb42087a",
+  "bucketName": "classes369-backend-storage-cb42087a",
+  "policyUUID": "a82ef3f3",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

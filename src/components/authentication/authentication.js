@@ -17,6 +17,7 @@ import '../../App.css';
 import { createUser } from '../../graphql/mutations';
 // @ts-ignore
 import logo from '../homepage/assets/logo.png';
+// @ts-ignore
 import videoBackground from './assets/background.mp4';
 I18n.putVocabularies(translations);
 I18n.setLanguage('vi');
@@ -169,10 +170,12 @@ export default function AwsAuthenticator() {
     switch (data.payload.event) {
       case 'signIn':
         console.log('user signed in');
+
         break;
       case 'signUp':
         console.log('dang sign up ne');
         createNewUser(data.payload.data.userSub);
+        localStorage.setItem('isFirstTimeLoggedIn', 'true');
         break;
       case 'signOut':
         console.log('user signed out');
@@ -186,7 +189,7 @@ export default function AwsAuthenticator() {
   });
 
   return authStatus === 'authenticated' ? (
-    <Navigate to="/" />
+    <Navigate to="/home" />
   ) : (
     <>
       <video autoPlay muted loop id="myVideo">

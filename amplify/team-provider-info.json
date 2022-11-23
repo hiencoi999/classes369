@@ -12,10 +12,14 @@
       "AmplifyAppId": "d3djmpv72er0wp"
     },
     "categories": {
-      "auth": {
+      "api": {
         "classes369backend": {}
       },
-      "api": {
+      "storage": {
+        "s3classes369backendstoragecb42087a": {}
+      },
+      "auth": {
+        "classes369backend617607b3617607b3": {},
         "classes369backend": {}
       }
     }

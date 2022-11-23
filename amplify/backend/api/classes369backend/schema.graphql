@@ -1,7 +1,7 @@
 type ClassMember @model @auth(rules: [{allow: public}]) {
   id: ID!
-  classID: ID! @index(name: "byClass")
-  userID: ID! @index(name: "byUser")
+  classId: ID! @index(name: "byClass")
+  userId: ID! @index(name: "byUser")
   role: RoleEnum
 }
 
@@ -14,7 +14,7 @@ type Class @model @auth(rules: [{allow: public}]) {
 type Like @model @auth(rules: [{allow: public}]) {
   id: ID!
   authorId: ID! @index(name: "byUser")
-  postID: ID! @index(name: "byPost")
+  postId: ID! @index(name: "byPost")
 }
 
 type Comment @model @auth(rules: [{allow: public}]) {
@@ -64,4 +64,11 @@ type User @model @auth(rules: [{allow: public}]) {
   phoneNumber: String
   ClassMembers: [ClassMember] @hasMany(indexName: "byUser", fields: ["id"])
 }
- 
+
+type ClassInvitation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  classInviteId: ID! @index(name: "byClass")
+  targetEmail: String
+  hostEmail: String
+  nameOfClass: String
+}

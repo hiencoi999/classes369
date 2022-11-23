@@ -7,8 +7,8 @@ export const onCreateClassMember = /* GraphQL */ `
   ) {
     onCreateClassMember(filter: $filter) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -21,8 +21,8 @@ export const onUpdateClassMember = /* GraphQL */ `
   ) {
     onUpdateClassMember(filter: $filter) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -35,8 +35,8 @@ export const onDeleteClassMember = /* GraphQL */ `
   ) {
     onDeleteClassMember(filter: $filter) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -87,7 +87,7 @@ export const onCreateLike = /* GraphQL */ `
     onCreateLike(filter: $filter) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -98,7 +98,7 @@ export const onUpdateLike = /* GraphQL */ `
     onUpdateLike(filter: $filter) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -109,7 +109,7 @@ export const onDeleteLike = /* GraphQL */ `
     onDeleteLike(filter: $filter) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -326,6 +326,51 @@ export const onDeleteUser = /* GraphQL */ `
       ClassMembers {
         nextToken
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateClassInvitation = /* GraphQL */ `
+  subscription OnCreateClassInvitation(
+    $filter: ModelSubscriptionClassInvitationFilterInput
+  ) {
+    onCreateClassInvitation(filter: $filter) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateClassInvitation = /* GraphQL */ `
+  subscription OnUpdateClassInvitation(
+    $filter: ModelSubscriptionClassInvitationFilterInput
+  ) {
+    onUpdateClassInvitation(filter: $filter) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteClassInvitation = /* GraphQL */ `
+  subscription OnDeleteClassInvitation(
+    $filter: ModelSubscriptionClassInvitationFilterInput
+  ) {
+    onDeleteClassInvitation(filter: $filter) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
       createdAt
       updatedAt
     }

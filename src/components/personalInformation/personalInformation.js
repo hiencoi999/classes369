@@ -1,123 +1,58 @@
-// import { PlusOutlined } from '@ant-design/icons';
-// import {
-//   Button,
-//   Cascader,
-//   Checkbox,
-//   DatePicker,
-//   Form,
-//   Input,
-//   InputNumber,
-//   Radio,
-//   Select,
-//   Switch,
-//   TreeSelect,
-//   Upload
-// } from 'antd';
-// import 'antd/dist/antd.css';
-// import React, { useState } from 'react';
-
-// const { RangePicker } = DatePicker;
-// const { TextArea } = Input;
-
-// export default function PersonalInformation() {
-//   const [componentDisabled, setComponentDisabled] = useState(true);
-//   const onFormLayoutChange = (disabled) => {
-//     setComponentDisabled(disabled);
-//   };
-
-//   return (
-//     <>
-//       <Checkbox checked={componentDisabled} onChange={(e) => setComponentDisabled(e.target.checked)}>
-//         Form disabled
-//       </Checkbox>
-//       <Form
-// labelCol={{ span: 4 }}
-// wrapperCol={{ span: 14 }}
-// layout="horizontal"
-// onValuesChange={onFormLayoutChange}
-//         disabled={componentDisabled}>
-//         <Form.Item label="Chekbox" name="disabled" valuePropName="checked">
-//           <Checkbox>Checkbox</Checkbox>
-//         </Form.Item>
-//         <Form.Item label="Radio">
-//           <Radio.Group>
-//             <Radio value="apple"> Apple </Radio>
-//             <Radio value="pear"> Pear </Radio>
-//           </Radio.Group>
-//         </Form.Item>
-//         <Form.Item label="Input">
-//           <Input />
-//         </Form.Item>
-//         <Form.Item label="Select">
-//           <Select>
-//             <Select.Option value="demo">Demo</Select.Option>
-//           </Select>
-//         </Form.Item>
-//         <Form.Item label="TreeSelect">
-//           <TreeSelect
-//             treeData={[{ title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] }]}
-//           />
-//         </Form.Item>
-//         <Form.Item label="Cascader">
-//           <Cascader
-//             options={[
-//               {
-//                 value: 'zhejiang',
-//                 label: 'Zhejiang',
-//                 children: [
-//                   {
-//                     value: 'hangzhou',
-//                     label: 'Hangzhou'
-//                   }
-//                 ]
-//               }
-//             ]}
-//           />
-//         </Form.Item>
-// <Form.Item label="DatePicker">
-//   <DatePicker />
-// </Form.Item>
-//         <Form.Item label="RangePicker">
-//           <RangePicker />
-//         </Form.Item>
-//         <Form.Item label="InputNumber">
-//           <InputNumber />
-//         </Form.Item>
-//         <Form.Item label="TextArea">
-//           <TextArea rows={4} />
-//         </Form.Item>
-//         <Form.Item label="Switch" valuePropName="checked">
-//           <Switch />
-//         </Form.Item>
-// <Form.Item label="Upload" valuePropName="fileList">
-//   <Upload action="/upload.do" listType="picture-card">
-//     <div>
-//       <PlusOutlined />
-//       <div style={{ marginTop: 8 }}>Upload</div>
-//     </div>
-//   </Upload>
-// </Form.Item>
-// <Form.Item label="Button">
-//   <Button>Button</Button>
-// </Form.Item>
-//       </Form>
-//     </>
-//   );
-// }
 import { PlusOutlined } from '@ant-design/icons';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button, DatePicker, Form, Input, Upload } from 'antd';
-import { API } from 'aws-amplify';
+import ImgCrop from 'antd-img-crop';
+import { API, Storage } from 'aws-amplify';
+import React, { useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { updateUser } from '../../graphql/mutations';
+const formItemLayout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 8 }
+};
+
+const formTailLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8, offset: 8 }
+};
+
 export default function PersonalInformation() {
-  const onFinish = (e) => {
-    console.log(e);
-    updatePersonalInformation(e.firstName, e.lastName, e.birthday);
+  // @ts-ignore
+  const handleSetAvatarUrl = useOutletContext();
+
+  const [isDisabledForm, setDisableFrom] = useState(true);
+
+  const [fileList, setFileList] = useState([]);
+  console.log(fileList);
+  const beforeUpload = (file) => {
+    console.log(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setFileList((prev) => [...prev, { url: reader.result }]);
+    };
+    // then upload `file` from the argument manually
+    return false;
+  };
+
+  const onFinish = async (e) => {
+    try {
+      const blob = fileList.length > 0 ? await (await fetch(fileList[fileList.length - 1].url)).blob() : null;
+      const file = new File([blob], 'avatar');
+
+      const obj = await Storage.put(`${file.name}_${uuidv4()}`, file);
+
+      const avatarUrl = 'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' + obj.key;
+      updatePersonalInformation(e.firstName, e.lastName, e.birthday, avatarUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { user } = useAuthenticator((context) => [context.user]);
 
-  const updatePersonalInformation = async (firstName, lastName, birthday) => {
+  const updatePersonalInformation = async (firstName, lastName, birthday, avatarUrl) => {
     const data = await API.graphql({
       query: updateUser,
       variables: {
@@ -127,35 +62,62 @@ export default function PersonalInformation() {
           phoneNumber: user.attributes.phone_number,
           firstName: firstName,
           lastName: lastName,
-          birthday: birthday
+          birthday: birthday,
+          avatarUrl: avatarUrl
         }
       }
     });
     console.log(data);
+    handleSetAvatarUrl(avatarUrl);
   };
 
   return (
-    <Form labelCol={{ span: 4 }} wrapperCol={{ span: 4 }} layout="horizontal" onFinish={onFinish}>
+    <Form {...formItemLayout} layout="horizontal" onFinish={onFinish}>
       <Form.Item label="Họ" name="firstName">
-        <Input required />
+        <Input disabled={isDisabledForm} />
       </Form.Item>
       <Form.Item label="Tên" name="lastName">
-        <Input required />
+        <Input disabled={isDisabledForm} />
+      </Form.Item>
+      <Form.Item label="Email" name="email">
+        <Input defaultValue={user.attributes.email} disabled={true} />
+      </Form.Item>
+      <Form.Item label="Số điện thoai" name="phoneNumber">
+        <Input defaultValue={user.attributes.phone_number} disabled={true} />
       </Form.Item>
       <Form.Item label="Ngày sinh" name="birthday">
-        <DatePicker format="YYYY-MM-DD" />
+        <DatePicker format="YYYY-MM-DD" disabled={isDisabledForm} />
       </Form.Item>
-      <Form.Item valuePropName="fileList">
-        <Upload action="/abc" listType="picture-card">
-          <div>
-            <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Chọn ảnh đại diện</div>
-          </div>
-        </Upload>
+      <Form.Item label="Tải lên" name="avatar">
+        <ImgCrop rotate>
+          <Upload
+            disabled={isDisabledForm}
+            accept="image/png, image/jpeg, image/jpg"
+            maxCount={1}
+            listType="picture-card"
+            beforeUpload={beforeUpload}>
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Chọn ảnh đại diện</div>
+            </div>
+          </Upload>
+        </ImgCrop>
       </Form.Item>
-      <Form.Item>
-        <Button block htmlType="submit">
+      <Form.Item {...formTailLayout}>
+        <Button disabled={isDisabledForm} block type="primary" htmlType="submit" style={{ marginBottom: '5px' }}>
           Xác nhận
+        </Button>
+        <Button disabled={isDisabledForm} block type="primary" danger htmlType="reset" style={{ marginBottom: '5px' }}>
+          Hủy
+        </Button>
+        <Button
+          block
+          htmlType="button"
+          onClick={() => {
+            setDisableFrom(false);
+          }}
+          style={{ marginBottom: '5px' }}>
+          Chỉnh sửa
         </Button>
       </Form.Item>
     </Form>

@@ -11,7 +11,6 @@
           "EMAIL"
         ],
         "signupAttributes": [
-          "EMAIL",
           "PHONE_NUMBER"
         ],
         "passwordProtectionSettings": {
@@ -50,5 +49,13 @@
         }
       }
     }
-  }
+  },
+  "storage": {
+    "s3classes369backendstoragecb42087a": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  },
+  "function": {}
 }

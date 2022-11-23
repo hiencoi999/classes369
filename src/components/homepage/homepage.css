@@ -1,31 +1,24 @@
 @import '~antd/dist/antd.compact.css';
 
 .homepage-layout {
-  position: fixed;
+  position: inherit;
   height: 100%;
   width: 100%;
 }
 
-.header {
-  position: relative;
-  background-color:burlywood;
-  height: 8vh;
-}
-
 .menu {
-  /* position: relative; */
-  background-color:burlywood;
+  /* background-color:rgb(164, 189, 181); */
   width: 100vw;
   height: 8vh;
   margin: auto;
   display: flex;
-  /* flex-direction: row-reverse; */
 }
 
 .menu-item {
   position: absolute;
   margin: auto;
   width: 5vw;
+
 }
 
 .item {
@@ -33,17 +26,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.clock {
-  /* margin-top: 2px;  */
-  margin: auto;
-}
-
-#welcome-text {
- position: absolute;
- left: 75%;
- -webkit-text-fill-color:aqua
 }
 
 #div-sign-out-btn {

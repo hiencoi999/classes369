@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "classe900af44b",
+    "resourceNameTruncated": "classe8e5975cc",
     "userPoolName": "classes369backend",
     "autoVerifiedAttributes": [
       "email"
@@ -14,13 +14,12 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Classes369 invitationcode code: {####}",
-    "emailVerificationMessage": "Invitation code: {####}",
+    "emailVerificationSubject": "Classes369 ma dang ky: {####}",
+    "emailVerificationMessage": "Ma dang ky cua ban la: {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email",
       "phone_number"
     ],
     "aliasAttributes": [],
@@ -28,15 +27,14 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "classe900af44b_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "classe8e5975cc_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "900af44b",
+    "sharedId": "8e5975cc",
     "resourceName": "classes369backend",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "usernameAttributes": [
-      "email",
-      "phone_number"
+      "email"
     ],
     "useDefault": "manual",
     "userPoolGroups": false,

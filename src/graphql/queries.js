@@ -5,8 +5,8 @@ export const getClassMember = /* GraphQL */ `
   query GetClassMember($id: ID!) {
     getClassMember(id: $id) {
       id
-      classID
-      userID
+      classId
+      userId
       role
       createdAt
       updatedAt
@@ -22,8 +22,8 @@ export const listClassMembers = /* GraphQL */ `
     listClassMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        classID
-        userID
+        classId
+        userId
         role
         createdAt
         updatedAt
@@ -67,7 +67,7 @@ export const getLike = /* GraphQL */ `
     getLike(id: $id) {
       id
       authorId
-      postID
+      postId
       createdAt
       updatedAt
     }
@@ -83,7 +83,7 @@ export const listLikes = /* GraphQL */ `
       items {
         id
         authorId
-        postID
+        postId
         createdAt
         updatedAt
       }
@@ -235,6 +235,43 @@ export const listUsers = /* GraphQL */ `
         avatarUrl
         email
         phoneNumber
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getClassInvitation = /* GraphQL */ `
+  query GetClassInvitation($id: ID!) {
+    getClassInvitation(id: $id) {
+      id
+      classInviteId
+      targetEmail
+      hostEmail
+      nameOfClass
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listClassInvitations = /* GraphQL */ `
+  query ListClassInvitations(
+    $filter: ModelClassInvitationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listClassInvitations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        classInviteId
+        targetEmail
+        hostEmail
+        nameOfClass
         createdAt
         updatedAt
       }
