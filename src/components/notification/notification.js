@@ -3,16 +3,18 @@ import { Space } from 'antd';
 import { API } from 'aws-amplify';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { createClassMember, deleteClassInvitation } from '../../graphql/mutations';
 import { listClassInvitations } from '../../graphql/queries';
+import { toastParams } from '../../utils/params';
 
 moment.locale('vi');
 
 export default function Notification() {
   const { user } = useAuthenticator((context) => [context.user]);
   const [data, setData] = useState([]);
+  const [loadingAccept, setLoadingAccept] = useState(false);
 
-  console.log('data', data);
   console.log(user.username);
 
   useEffect(() => {
@@ -29,15 +31,18 @@ export default function Notification() {
   };
 
   const acceptInvitation = async (item) => {
-    console.log('item la', item);
     try {
+      setLoadingAccept(true);
       await API.graphql({
         query: createClassMember,
-        variables: { input: { classId: item.classInviteId, role: 'STUDENT', userId: user.attributes.sub } }
+        variables: { input: { classId: item.classInviteId, userId: user.attributes.sub } }
       });
       refuseInvitation(item.id);
+      setLoadingAccept(false);
+      toast.success('Đã chấp nhận lời mời', toastParams);
     } catch (error) {
       console.log(error);
+      toast.error('Đã có lỗi xảy ra', toastParams);
     }
   };
 
@@ -65,7 +70,7 @@ export default function Notification() {
         hasIcon={true}
         heading={
           <Space direction="vertical" style={{ float: 'right' }}>
-            <Button loadingText="Đang tải" onClick={() => acceptInvitation(item)}>
+            <Button isLoading={loadingAccept} loadingText="Đang tải" onClick={() => acceptInvitation(item)}>
               Đồng ý
             </Button>
             <Button onClick={() => refuseInvitation(item.id)}>Từ chối</Button>
@@ -86,6 +91,7 @@ export default function Notification() {
       <Space direction="vertical" style={{ width: '100%' }}>
         <AlertRenderer></AlertRenderer>
       </Space>
+      <ToastContainer></ToastContainer>
     </>
   );
 }

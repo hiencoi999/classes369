@@ -4,7 +4,7 @@ import { Button, Space } from 'antd';
 import { API, graphqlOperation } from 'aws-amplify';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { onCreatePost } from '../../graphql/subscriptions';
 import AddPostPopup from './post';
@@ -13,7 +13,7 @@ export default function Forum() {
   const [toggleNormalPopup, setToggleNormalPopup] = useState(false);
   const [posts, setPosts] = useState([]);
   const pathParam = useParams();
-
+  const navigate = useNavigate();
   console.log('posts', posts);
   const onOpenAddPostPopup = () => {
     setToggleNormalPopup(true);
@@ -45,9 +45,7 @@ export default function Forum() {
       }
       `)
     );
-    console.log('====================================');
-    console.log('user', data);
-    console.log('====================================');
+
     setPosts(data.data.getClass.Posts.items);
   };
 
@@ -112,7 +110,7 @@ export default function Forum() {
   return (
     <div style={{ position: 'relative' }}>
       <div>
-        <Button shape="circle" style={{ backgroundColor: '#005566', color: 'white' }}>
+        <Button onClick={() => navigate(-1)} shape="circle" style={{ backgroundColor: '#005566', color: 'white' }}>
           <LeftOutlined />
         </Button>
 

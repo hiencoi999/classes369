@@ -1,38 +1,17 @@
 type ClassMember @model @auth(rules: [{allow: public}]) {
   id: ID!
   classId: ID! @index(name: "byClass")
-  userId: ID! @index(name: "byUser")
-  role: RoleEnum
+  userId: ID! @index(name: "byMemberByUser")
+  class: Class @belongsTo(fields: ["classId"])
+  user: User @belongsTo(fields: ["userId"])
 }
 
 type Class @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
+  ownerId: ID! @index(name: "byClassByUser")
   ClassMembers: [ClassMember] @hasMany(indexName: "byClass", fields: ["id"])
   Posts: [Post] @hasMany(indexName: "byPostByClass", fields: ["id"])
-}
-
-type Like @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  authorId: ID! @index(name: "byUser")
-  postId: ID! @index(name: "byPost")
-}
-
-type Comment @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  postId: ID! @index(name: "byPost")
-  authorId: ID! @index(name: "byUser")
-  description: String
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-}
-
-type Message @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  authorId: ID! @index(name: "byUser")
-  receiverId: ID!
-  content: String!
-  createdAt: AWSDateTime
 }
 
 type Post @model @auth(rules: [{allow: public}]) {
@@ -44,14 +23,7 @@ type Post @model @auth(rules: [{allow: public}]) {
   classId: ID! @index(name: "byPostByClass")
   title: String
   deadline: AWSDateTime
-  Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
-  Likes: [Like] @hasMany(indexName: "byPost", fields: ["id"])
   author: User @belongsTo(fields: ["authorId"])
-}
-
-enum RoleEnum {
-  MANAGER
-  STUDENT
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -60,13 +32,11 @@ type User @model @auth(rules: [{allow: public}]) {
   lastName: String
   birthday: String
   avatarUrl: String
-  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
-  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
-  Comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
-  Likes: [Like] @hasMany(indexName: "byUser", fields: ["id"])
   email: String
   phoneNumber: String
-  ClassMembers: [ClassMember] @hasMany(indexName: "byUser", fields: ["id"])
+  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  Classes: [Class] @hasMany(indexName: "byClassByUser", fields: ["id"])
+  ClassMembers: [ClassMember] @hasMany(indexName: "byMemberByUser", fields: ["id"])
 }
 
 type ClassInvitation @model @auth(rules: [{allow: public}]) {

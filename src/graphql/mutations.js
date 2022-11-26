@@ -10,7 +10,24 @@ export const createClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -25,7 +42,24 @@ export const updateClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -40,7 +74,24 @@ export const deleteClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -54,6 +105,7 @@ export const createClass = /* GraphQL */ `
     createClass(input: $input, condition: $condition) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
@@ -73,6 +125,7 @@ export const updateClass = /* GraphQL */ `
     updateClass(input: $input, condition: $condition) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
@@ -92,144 +145,13 @@ export const deleteClass = /* GraphQL */ `
     deleteClass(input: $input, condition: $condition) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
       Posts {
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createLike = /* GraphQL */ `
-  mutation CreateLike(
-    $input: CreateLikeInput!
-    $condition: ModelLikeConditionInput
-  ) {
-    createLike(input: $input, condition: $condition) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateLike = /* GraphQL */ `
-  mutation UpdateLike(
-    $input: UpdateLikeInput!
-    $condition: ModelLikeConditionInput
-  ) {
-    updateLike(input: $input, condition: $condition) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteLike = /* GraphQL */ `
-  mutation DeleteLike(
-    $input: DeleteLikeInput!
-    $condition: ModelLikeConditionInput
-  ) {
-    deleteLike(input: $input, condition: $condition) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    createComment(input: $input, condition: $condition) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    updateComment(input: $input, condition: $condition) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    deleteComment(input: $input, condition: $condition) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createMessage = /* GraphQL */ `
-  mutation CreateMessage(
-    $input: CreateMessageInput!
-    $condition: ModelMessageConditionInput
-  ) {
-    createMessage(input: $input, condition: $condition) {
-      id
-      authorId
-      receiverId
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateMessage = /* GraphQL */ `
-  mutation UpdateMessage(
-    $input: UpdateMessageInput!
-    $condition: ModelMessageConditionInput
-  ) {
-    updateMessage(input: $input, condition: $condition) {
-      id
-      authorId
-      receiverId
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteMessage = /* GraphQL */ `
-  mutation DeleteMessage(
-    $input: DeleteMessageInput!
-    $condition: ModelMessageConditionInput
-  ) {
-    deleteMessage(input: $input, condition: $condition) {
-      id
-      authorId
-      receiverId
-      content
       createdAt
       updatedAt
     }
@@ -249,12 +171,6 @@ export const createPost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -283,12 +199,6 @@ export const updatePost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -317,12 +227,6 @@ export const deletePost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -348,20 +252,14 @@ export const createUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }
@@ -381,20 +279,14 @@ export const updateUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }
@@ -414,20 +306,14 @@ export const deleteUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }

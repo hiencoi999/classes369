@@ -1,5 +1,5 @@
 export const toastParams = {
-  position: 'top-center',
+  position: 'bottom-center',
   autoClose: 2000,
   hideProgressBar: false,
   closeOnClick: true,

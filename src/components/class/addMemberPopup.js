@@ -8,7 +8,9 @@ import { BiMailSend } from 'react-icons/bi';
 import { MdInfoOutline, MdOutlineFileUpload } from 'react-icons/md';
 import { isEmail, ReactMultiEmail } from 'react-multi-email';
 import 'react-multi-email/style.css';
+import { toast } from 'react-toastify';
 import { createClassInvitation } from '../../graphql/mutations';
+import { toastParams } from '../../utils/params';
 export default function AddMemberPopup(props) {
   const { user } = useAuthenticator((context) => [context.user]);
 
@@ -55,8 +57,6 @@ export default function AddMemberPopup(props) {
   };
 
   const sendInvitation = async (classId, nameOfClass) => {
-    console.log('classId ', classId);
-    console.log('nameOfClass ', nameOfClass);
     setLoading(true);
     try {
       await Promise.all(
@@ -74,11 +74,12 @@ export default function AddMemberPopup(props) {
           });
         })
       );
+      setLoading(false);
+      props.onCloseAddMember();
+      toast.success('Thực hiện thành công', toastParams);
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
-    props.onCloseAddMember();
   };
 
   return (

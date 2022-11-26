@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { createPost } from '../../graphql/mutations';
 export default function AddPostPopup(props) {
   const { user } = useAuthenticator((context) => [context.user]);
-
+  const [loading, setLoading] = useState(false);
   const [datetimeDisabled, setDatetimeDisabled] = useState(1);
 
   const [form] = Form.useForm();
@@ -24,6 +24,7 @@ export default function AddPostPopup(props) {
 
   const onFinish = async (e) => {
     try {
+      setLoading(true);
       await API.graphql({
         query: createPost,
         variables: {
@@ -37,6 +38,7 @@ export default function AddPostPopup(props) {
         }
       });
       form.resetFields();
+      setLoading(false);
       props.onCancel();
     } catch (error) {
       console.log(error);
@@ -74,16 +76,15 @@ export default function AddPostPopup(props) {
           </Form.Item>
         </Space>
         <Form.Item>
-          <Button style={{ float: 'right' }} variation="primary" type="submit">
+          <Button
+            isLoading={loading}
+            loadingText="Đang tạo"
+            style={{ float: 'right' }}
+            variation="primary"
+            type="submit">
             Tạo
           </Button>
         </Form.Item>
-        {/* <Dragger height="20vh">
-          <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">Tải lên ảnh, video, file ...</p>
-        </Dragger> */}
       </Form>
     </Modal>
   );

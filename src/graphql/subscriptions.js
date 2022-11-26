@@ -9,7 +9,24 @@ export const onCreateClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -23,7 +40,24 @@ export const onUpdateClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -37,7 +71,24 @@ export const onDeleteClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -48,6 +99,7 @@ export const onCreateClass = /* GraphQL */ `
     onCreateClass(filter: $filter) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
@@ -64,6 +116,7 @@ export const onUpdateClass = /* GraphQL */ `
     onUpdateClass(filter: $filter) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
@@ -80,117 +133,13 @@ export const onDeleteClass = /* GraphQL */ `
     onDeleteClass(filter: $filter) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
       Posts {
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateLike = /* GraphQL */ `
-  subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
-    onCreateLike(filter: $filter) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateLike = /* GraphQL */ `
-  subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
-    onUpdateLike(filter: $filter) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteLike = /* GraphQL */ `
-  subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
-    onDeleteLike(filter: $filter) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onCreateMessage(filter: $filter) {
-      id
-      authorId
-      receiverId
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onUpdateMessage(filter: $filter) {
-      id
-      authorId
-      receiverId
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onDeleteMessage(filter: $filter) {
-      id
-      authorId
-      receiverId
-      content
       createdAt
       updatedAt
     }
@@ -207,12 +156,6 @@ export const onCreatePost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -238,12 +181,6 @@ export const onUpdatePost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -269,12 +206,6 @@ export const onDeletePost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -297,20 +228,14 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }
@@ -327,20 +252,14 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }
@@ -357,20 +276,14 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }

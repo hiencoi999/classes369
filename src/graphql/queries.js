@@ -7,7 +7,24 @@ export const getClassMember = /* GraphQL */ `
       id
       classId
       userId
-      role
+      class {
+        id
+        name
+        ownerId
+        createdAt
+        updatedAt
+      }
+      user {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -24,7 +41,6 @@ export const listClassMembers = /* GraphQL */ `
         id
         classId
         userId
-        role
         createdAt
         updatedAt
       }
@@ -37,6 +53,7 @@ export const getClass = /* GraphQL */ `
     getClass(id: $id) {
       id
       name
+      ownerId
       ClassMembers {
         nextToken
       }
@@ -58,97 +75,7 @@ export const listClasses = /* GraphQL */ `
       items {
         id
         name
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getLike = /* GraphQL */ `
-  query GetLike($id: ID!) {
-    getLike(id: $id) {
-      id
-      authorId
-      postId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listLikes = /* GraphQL */ `
-  query ListLikes(
-    $filter: ModelLikeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        authorId
-        postId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      postId
-      authorId
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        postId
-        authorId
-        description
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getMessage = /* GraphQL */ `
-  query GetMessage($id: ID!) {
-    getMessage(id: $id) {
-      id
-      authorId
-      receiverId
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listMessages = /* GraphQL */ `
-  query ListMessages(
-    $filter: ModelMessageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        authorId
-        receiverId
-        content
+        ownerId
         createdAt
         updatedAt
       }
@@ -167,12 +94,6 @@ export const getPost = /* GraphQL */ `
       classId
       title
       deadline
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
       author {
         id
         firstName
@@ -216,20 +137,14 @@ export const getUser = /* GraphQL */ `
       lastName
       birthday
       avatarUrl
+      email
+      phoneNumber
       Posts {
         nextToken
       }
-      Messages {
+      Classes {
         nextToken
       }
-      Comments {
-        nextToken
-      }
-      Likes {
-        nextToken
-      }
-      email
-      phoneNumber
       ClassMembers {
         nextToken
       }
