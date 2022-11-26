@@ -9,14 +9,15 @@ import { getUser } from '../../graphql/queries';
 
 import PersonalInformationPopup from '../personalInformationPopup/personalInformationPopup';
 import './homepage.css';
+
 const { Content } = Layout;
+const S3_PREFIX =
+  'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' | process.env.REACT_APP_S3_PREFIX;
 
 export default function Homepage() {
   const { user } = useAuthenticator((context) => [context.user]);
   const [thisUser, setThisUser] = useState();
-  const avatarUrl =
-    'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' +
-    localStorage.getItem('avatar');
+  const avatarUrl = S3_PREFIX + localStorage.getItem('avatar');
   const fetchUser = async () => {
     const data = await API.graphql({
       query: getUser,

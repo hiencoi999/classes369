@@ -5,6 +5,7 @@ import Modal from 'antd/lib/modal/Modal';
 import { API, graphqlOperation } from 'aws-amplify';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { S3_PREFIX } from '../../utils/params';
 
 moment.locale('vi');
 export default function ClassDetail(props) {
@@ -44,10 +45,7 @@ export default function ClassDetail(props) {
       <TableRow key={index}>
         <TableCell>
           <img
-            src={
-              'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' +
-              member.user.avatarUrl
-            }
+            src={S3_PREFIX + member.user.avatarUrl}
             style={{ height: '3rem', width: '3rem', border: 'black solid thin', borderRadius: '50%' }}
           />
         </TableCell>

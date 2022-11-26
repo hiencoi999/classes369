@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { onCreatePost } from '../../graphql/subscriptions';
+import { S3_PREFIX } from '../../utils/params';
 import AddPostPopup from './post';
 moment.locale('vi');
 export default function Forum() {
@@ -82,10 +83,7 @@ export default function Forum() {
             color: 'white'
           }}>
           <img
-            src={
-              'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' +
-              post.author.avatarUrl
-            }
+            src={S3_PREFIX + post.author.avatarUrl}
             style={{ height: '3rem', width: '3rem', borderRadius: '10px 0 0 0 ' }}></img>
           <Space direction="vertical">
             <strong>{post.author.firstName + ' ' + post.author.lastName}</strong>
