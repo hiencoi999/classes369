@@ -12,9 +12,13 @@ code {
 }
 
 .modalStyle .ant-modal-content{
-  background-color:rgb(164, 189, 181);
+  background-color: rgb(164, 189, 181);
 }
 
 .modalStyle .ant-modal-header{
   text-align: center;
+}
+
+.inputInfo {
+  border: solid thin black;
 }

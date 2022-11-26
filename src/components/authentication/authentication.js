@@ -179,6 +179,7 @@ export default function AwsAuthenticator() {
         break;
       case 'signOut':
         console.log('user signed out');
+        localStorage.removeItem('avatar');
         break;
       case 'signIn_failure':
         console.log('user sign in failed');

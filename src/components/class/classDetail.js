@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { getUser, listClassMembers } from '../../graphql/queries';
 moment.locale('vi');
 export default function ClassDetail(props) {
-  const [isOpened, setOpenModal] = useState(true);
   const [listMember, setListMember] = useState([]);
   const [loading, setLoading] = useState(false);
   console.log('listMember', listMember);
@@ -51,11 +50,6 @@ export default function ClassDetail(props) {
     ));
   };
 
-  const handleOnCancel = () => {
-    props.handleCloseClassDetail(false);
-    setOpenModal(false);
-  };
-
   const getMemberList = async () => {
     try {
       setLoading(true);
@@ -85,10 +79,15 @@ export default function ClassDetail(props) {
 
   useEffect(() => {
     getMemberList();
-  }, []);
+  }, [props.classId]);
 
   return (
-    <Modal width="50%" open={isOpened} title="Thông tin chi tiết" footer={null} onCancel={handleOnCancel}>
+    <Modal
+      width="50%"
+      open={props.openClassDetail}
+      title="Thông tin chi tiết"
+      footer={null}
+      onCancel={props.onCloseClassDetail}>
       <Spin size="large" spinning={loading}>
         <ThemeProvider theme={theme} colorMode="light">
           <Table highlightOnHover variation="striped">

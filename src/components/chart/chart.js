@@ -17,9 +17,7 @@ export default function WeatherChart() {
   const [rainSum, setRainSum] = useState([]);
   const [calenderUrl, setCalenderUrl] = useState('');
   const props = useOutletContext();
-  console.log('====================================');
-  console.log(props);
-  console.log('====================================');
+
   const fetchUserName = () => {
     let name = props.thisUser !== undefined ? props.thisUser.firstName + ' ' + props.thisUser.lastName : '';
     setCalenderUrl(
@@ -86,7 +84,7 @@ export default function WeatherChart() {
 
   return (
     <>
-      <Space direction="horizontal">
+      <Space direction="horizontal" style={{ position: 'fixed' }}>
         <div style={{ width: '58vw', height: '85vh', borderRadius: '10px' }}>
           <iframe
             width="100%"
@@ -99,7 +97,7 @@ export default function WeatherChart() {
           <Space direction="vertical">
             <div
               style={{
-                width: '38vw',
+                width: '36w',
                 textAlign: 'center',
                 backgroundColor: 'white',
                 borderRadius: '10px',
@@ -110,7 +108,7 @@ export default function WeatherChart() {
             </div>
             <div
               style={{
-                width: '38vw',
+                width: '36vw',
                 textAlign: 'center',
                 backgroundColor: 'white',
                 borderRadius: '10px',

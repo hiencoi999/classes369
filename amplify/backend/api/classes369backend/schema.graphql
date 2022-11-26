@@ -9,6 +9,7 @@ type Class @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   ClassMembers: [ClassMember] @hasMany(indexName: "byClass", fields: ["id"])
+  Posts: [Post] @hasMany(indexName: "byPostByClass", fields: ["id"])
 }
 
 type Like @model @auth(rules: [{allow: public}]) {
@@ -40,9 +41,12 @@ type Post @model @auth(rules: [{allow: public}]) {
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
   description: String!
-  mediaUrl: String
+  classId: ID! @index(name: "byPostByClass")
+  title: String
+  deadline: AWSDateTime
   Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
   Likes: [Like] @hasMany(indexName: "byPost", fields: ["id"])
+  author: User @belongsTo(fields: ["authorId"])
 }
 
 enum RoleEnum {

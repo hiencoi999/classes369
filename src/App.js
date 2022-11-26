@@ -27,8 +27,10 @@ export default function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/home" element={<WeatherChart />} />
           <Route path="/personal-information" element={<PersonalInformation />} />
-          <Route path="/class" element={<ClassManagement />} />
-          <Route path="/forum" element={<Forum />} />
+          <Route path="/class" element={<ClassManagement />}>
+            {/* <Route path="child2" element={<Forum />} /> */}
+          </Route>
+          <Route path="/class/:classId" element={<Forum />} />
         </Route>
         <Route path="/auth" element={<AwsAuthenticator />} />
         <Route path="*" element={<PageNotFound />} />

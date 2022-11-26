@@ -40,6 +40,9 @@ export const getClass = /* GraphQL */ `
       ClassMembers {
         nextToken
       }
+      Posts {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -161,12 +164,25 @@ export const getPost = /* GraphQL */ `
       createdAt
       updatedAt
       description
-      mediaUrl
+      classId
+      title
+      deadline
       Comments {
         nextToken
       }
       Likes {
         nextToken
+      }
+      author {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
       }
     }
   }
@@ -184,7 +200,9 @@ export const listPosts = /* GraphQL */ `
         createdAt
         updatedAt
         description
-        mediaUrl
+        classId
+        title
+        deadline
       }
       nextToken
     }

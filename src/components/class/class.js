@@ -18,6 +18,7 @@ import 'moment/locale/vi';
 import React, { useEffect, useState } from 'react';
 import { BsJournalPlus } from 'react-icons/bs';
 import { RiDeleteBin4Line } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createClass, createClassMember, deleteClass, deleteClassMember } from '../../graphql/mutations';
@@ -94,7 +95,7 @@ export default function ClassManagement() {
           }
         }
       });
-      console.log('fdsfds ', classIds);
+
       const classes = await Promise.all(
         classIds.data.listClassMembers.items.map(async (element) => {
           const data = await API.graphql({
@@ -115,7 +116,6 @@ export default function ClassManagement() {
         classes[index].push(classIds.data.listClassMembers.items[index].role);
       }
 
-      console.log('arr la', classes);
       setClassList(classes);
       setPageLoading(false);
     } catch (error) {
@@ -124,19 +124,17 @@ export default function ClassManagement() {
   };
 
   useEffect(() => {
-    console.log('mounted');
-
     getClassList();
   }, []);
 
   const handleCreateClass = async () => {
     try {
       setLoading(true);
-      const className = form.getFieldValue('class-name');
+      const nameOfClass = form.getFieldValue('class-name');
 
       const data = await API.graphql({
         query: createClass,
-        variables: { input: { name: className } }
+        variables: { input: { name: nameOfClass } }
       });
 
       const createdMember = await API.graphql({
@@ -171,7 +169,6 @@ export default function ClassManagement() {
         })
       ]);
 
-      console.log('members', members);
       await Promise.all(
         members.data.listClassMembers.items.map(async (member) => {
           await API.graphql({
@@ -209,14 +206,20 @@ export default function ClassManagement() {
     }
   };
 
-  console.log('screen width', screen.width);
-
-  const handleCloseClassDetail = (isOpened) => {
-    setOpenClassDetail(isOpened);
+  const onOpenClassDetail = () => {
+    setOpenClassDetail(true);
   };
 
-  const handleCloseAddMember = (isOpened) => {
-    setOpenAddMember(isOpened);
+  const onCloseClassDetail = () => {
+    setOpenClassDetail(false);
+  };
+
+  const onOpenAddMember = () => {
+    setOpenAddMember(true);
+  };
+
+  const onCloseAddMember = () => {
+    setOpenAddMember(false);
   };
 
   const pageLoadingIcon = <Loading3QuartersOutlined spin style={{ fontSize: 60, color: '#005566' }} />;
@@ -294,8 +297,9 @@ export default function ClassManagement() {
 
                     <Badge
                       onClick={() => {
-                        console.log('UIOUIIU');
+                        onOpenClassDetail(), setClassLeaveId(item[0].id);
                       }}
+                      style={{ cursor: 'pointer' }}
                       key={item[1]}
                       backgroundColor="green.40">
                       <UserOutlined style={{ marginRight: '0.2vw' }} />
@@ -307,14 +311,8 @@ export default function ClassManagement() {
                     </Badge>
                   </Flex>
                   <Divider padding="xs" />
-                  <Heading
-                    // key={item[0].id}
-                    onClick={() => {
-                      setOpenClassDetail(true), setClassLeaveId(item[0].id);
-                    }}
-                    padding="xs"
-                    style={{ cursor: 'pointer' }}>
-                    {item[0].name}
+                  <Heading style={{ cursor: 'pointer' }} padding="xs">
+                    <Link to={item[0].id}>{item[0].name}</Link>
                   </Heading>
 
                   <Divider />
@@ -333,7 +331,7 @@ export default function ClassManagement() {
                         size="small"
                         style={{ margin: '1rem' }}
                         onClick={() => {
-                          setOpenAddMember(true);
+                          onOpenAddMember();
                           setInvitation(item[0]);
                         }}>
                         <BsJournalPlus style={{ marginRight: '0.2vw' }} />
@@ -356,8 +354,23 @@ export default function ClassManagement() {
           </Collection>
         </ThemeProvider>
       )}
-      {openClassDetail ? <ClassDetail classId={classLeaveId} handleCloseClassDetail={handleCloseClassDetail} /> : null}
-      {openAddMember ? <AddMemberPopup classObj={invitation} handleCloseAddMember={handleCloseAddMember} /> : null}
+
+      <ClassDetail
+        openAddMember={openAddMember}
+        openClassDetail={openClassDetail}
+        classId={classLeaveId}
+        classObj={invitation}
+        onCloseClassDetail={onCloseClassDetail}
+        onCloseAddMember={onCloseAddMember}
+      />
+      <AddMemberPopup
+        openClassDetail={openClassDetail}
+        openAddMember={openAddMember}
+        classId={classLeaveId}
+        classObj={invitation}
+        onCloseAddMember={onCloseAddMember}
+        onCloseClassDetail={onCloseClassDetail}
+      />
       <ToastContainer></ToastContainer>
     </>
   );

@@ -1,4 +1,4 @@
-import { BellOutlined, FormOutlined, PoweroffOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
+import { BellOutlined, MessageOutlined, PoweroffOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 // import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button, Layout, Menu } from 'antd';
@@ -13,19 +13,20 @@ const { Content } = Layout;
 
 export default function Homepage() {
   const { user } = useAuthenticator((context) => [context.user]);
-
-  const [avatarUrl, setAvatarUrl] = useState('');
   const [thisUser, setThisUser] = useState();
-  console.log('====================================');
-  console.log('this User', thisUser);
-  console.log('====================================');
-
-  const getAvatarUrl = async () => {
+  const avatarUrl =
+    'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' +
+    localStorage.getItem('avatar');
+  const fetchUser = async () => {
     const data = await API.graphql({
       query: getUser,
       variables: { id: user.attributes.sub }
     });
-    setAvatarUrl(data.data.getUser.avatarUrl);
+
+    if (!localStorage.getItem('avatar')) {
+      localStorage.setItem('avatar', data.data.getUser.avatarUrl);
+    }
+
     setThisUser(data.data.getUser);
     return data.data.getUser.avatarUrl;
   };
@@ -38,17 +39,13 @@ export default function Homepage() {
     }
   }
 
-  const handleSetAvatarUrl = (avatarUrl) => {
-    setAvatarUrl(avatarUrl);
-  };
-
   useEffect(() => {
-    getAvatarUrl();
+    fetchUser();
   }, []);
 
   return (
     <>
-      <PersonalInformationPopup handleSetAvatarUrl={handleSetAvatarUrl} />
+      <PersonalInformationPopup />
       <Layout className="homepage-layout">
         <Menu mode="horizontal" theme="light" style={{ fontSize: '20px' }} className="menu">
           <Menu.Item className="menu-item">
@@ -70,8 +67,8 @@ export default function Homepage() {
           </Menu.Item>
           <Menu.Item className="menu-item">
             <div className="item">
-              <FormOutlined style={{ fontSize: '20px' }} className="item-icon" />
-              <Link to="/forum">Diễn đàn</Link>
+              <MessageOutlined style={{ fontSize: '20px' }} className="item-icon" />
+              <Link to="/chat">Chat</Link>
             </div>
           </Menu.Item>
           <Menu.Item className="menu-item">
@@ -104,7 +101,7 @@ export default function Homepage() {
             minHeight: 280
           }}>
           {/* use Outlet to render child componet - see react-router-dom v6 documentation */}
-          <Outlet context={{ thisUser, handleSetAvatarUrl }} />
+          <Outlet context={{ thisUser }} />
         </Content>
       </Layout>
     </>

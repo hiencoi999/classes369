@@ -51,6 +51,9 @@ export const onCreateClass = /* GraphQL */ `
       ClassMembers {
         nextToken
       }
+      Posts {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -64,6 +67,9 @@ export const onUpdateClass = /* GraphQL */ `
       ClassMembers {
         nextToken
       }
+      Posts {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -75,6 +81,9 @@ export const onDeleteClass = /* GraphQL */ `
       id
       name
       ClassMembers {
+        nextToken
+      }
+      Posts {
         nextToken
       }
       createdAt
@@ -195,12 +204,25 @@ export const onCreatePost = /* GraphQL */ `
       createdAt
       updatedAt
       description
-      mediaUrl
+      classId
+      title
+      deadline
       Comments {
         nextToken
       }
       Likes {
         nextToken
+      }
+      author {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
       }
     }
   }
@@ -213,12 +235,25 @@ export const onUpdatePost = /* GraphQL */ `
       createdAt
       updatedAt
       description
-      mediaUrl
+      classId
+      title
+      deadline
       Comments {
         nextToken
       }
       Likes {
         nextToken
+      }
+      author {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
       }
     }
   }
@@ -231,12 +266,25 @@ export const onDeletePost = /* GraphQL */ `
       createdAt
       updatedAt
       description
-      mediaUrl
+      classId
+      title
+      deadline
       Comments {
         nextToken
       }
       Likes {
         nextToken
+      }
+      author {
+        id
+        firstName
+        lastName
+        birthday
+        avatarUrl
+        email
+        phoneNumber
+        createdAt
+        updatedAt
       }
     }
   }

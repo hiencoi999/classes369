@@ -4,7 +4,7 @@ import { Button, DatePicker, Form, Input, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { API, Storage } from 'aws-amplify';
 import React, { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+
 import { v4 as uuidv4 } from 'uuid';
 import { updateUser } from '../../graphql/mutations';
 const formItemLayout = {
@@ -19,7 +19,6 @@ const formTailLayout = {
 
 export default function PersonalInformation() {
   // @ts-ignore
-  const handleSetAvatarUrl = useOutletContext();
 
   const [isDisabledForm, setDisableFrom] = useState(true);
 
@@ -43,7 +42,8 @@ export default function PersonalInformation() {
 
       const obj = await Storage.put(`${file.name}_${uuidv4()}`, file);
 
-      const avatarUrl = 'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' + obj.key;
+      localStorage.setItem('avatar', obj.key);
+      const avatarUrl = obj.key;
       updatePersonalInformation(e.firstName, e.lastName, e.birthday, avatarUrl);
     } catch (error) {
       console.log(error);
@@ -68,29 +68,33 @@ export default function PersonalInformation() {
       }
     });
     console.log(data);
-    handleSetAvatarUrl(avatarUrl);
   };
 
   return (
     <Form {...formItemLayout} layout="horizontal" onFinish={onFinish}>
       <Form.Item label="Họ" name="firstName">
-        <Input disabled={isDisabledForm} />
+        <Input className="inputInfo" disabled={isDisabledForm} />
       </Form.Item>
       <Form.Item label="Tên" name="lastName">
-        <Input disabled={isDisabledForm} />
+        <Input className="inputInfo" disabled={isDisabledForm} />
       </Form.Item>
       <Form.Item label="Email" name="email">
-        <Input defaultValue={user.attributes.email} disabled={true} />
+        <Input className="inputInfo" defaultValue={user.attributes.email} disabled={true} />
       </Form.Item>
       <Form.Item label="Số điện thoai" name="phoneNumber">
-        <Input defaultValue={user.attributes.phone_number} disabled={true} />
+        <Input className="inputInfo" defaultValue={user.attributes.phone_number} disabled={true} />
       </Form.Item>
       <Form.Item label="Ngày sinh" name="birthday">
-        <DatePicker format="YYYY-MM-DD" disabled={isDisabledForm} />
+        <DatePicker
+          style={{ width: '100%', border: 'solid thin black' }}
+          format="YYYY-MM-DD"
+          disabled={isDisabledForm}
+        />
       </Form.Item>
       <Form.Item label="Tải lên" name="avatar">
         <ImgCrop rotate>
           <Upload
+            style={{ width: '100px', border: 'solid thin black' }}
             disabled={isDisabledForm}
             accept="image/png, image/jpeg, image/jpg"
             maxCount={1}

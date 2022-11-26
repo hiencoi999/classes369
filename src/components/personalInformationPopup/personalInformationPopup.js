@@ -43,7 +43,8 @@ export default function PersonalInformationPopup(props) {
 
       const obj = await Storage.put(`${file.name}_${uuidv4()}`, file);
 
-      const avatarUrl = 'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' + obj.key;
+      localStorage.setItem('avatar', obj.key);
+      const avatarUrl = obj.key;
       updatePersonalInformation(e.firstName, e.lastName, e.birthday, avatarUrl);
     } catch (error) {
       console.log(error);
@@ -69,10 +70,8 @@ export default function PersonalInformationPopup(props) {
     });
 
     localStorage.removeItem('isFirstTimeLoggedIn');
-    props.handleSetAvatarUrl(avatarUrl);
     setLoading(false);
     setOpen(false);
-    window.location.reload();
   };
 
   return (
@@ -81,23 +80,23 @@ export default function PersonalInformationPopup(props) {
       title="Vui lòng nhập những thông tin dưới đây"
       footer={null}
       open={isOpen}
-      width={1000}
+      width="50vw"
       className="modalStyle">
       <Form {...formItemLayout} layout="horizontal" onFinish={onFinish}>
         <Form.Item label="Họ" name="firstName">
-          <Input required />
+          <Input className="inputInfo" required />
         </Form.Item>
         <Form.Item label="Tên" name="lastName">
-          <Input required />
+          <Input className="inputInfo" required />
         </Form.Item>
         <Form.Item label="Email" name="email">
-          <Input defaultValue={user.attributes.email} disabled={true} />
+          <Input className="inputInfo" defaultValue={user.attributes.email} disabled={true} />
         </Form.Item>
         <Form.Item label="Số điện thoai" name="phoneNumber">
-          <Input defaultValue={user.attributes.phone_number} disabled={true} />
+          <Input className="inputInfo" defaultValue={user.attributes.phone_number} disabled={true} />
         </Form.Item>
         <Form.Item label="Ngày sinh" name="birthday">
-          <DatePicker format="YYYY-MM-DD" />
+          <DatePicker style={{ width: '100%', border: 'solid thin black' }} format="YYYY-MM-DD" />
         </Form.Item>
         <Form.Item label="Tải lên" name="avatar">
           <ImgCrop rotate>
@@ -114,10 +113,20 @@ export default function PersonalInformationPopup(props) {
           </ImgCrop>
         </Form.Item>
         <Form.Item {...formTailLayout}>
-          <Button block htmlType="submit" type="primary" loading={loading} style={{ marginBottom: '5px' }}>
+          <Button
+            block
+            htmlType="submit"
+            type="primary"
+            loading={loading}
+            style={{ marginBottom: '5px', border: 'solid black thin' }}>
             Xác nhận
           </Button>
-          <Button block type="primary" danger htmlType="reset" style={{ marginBottom: '5px' }}>
+          <Button
+            block
+            type="primary"
+            danger
+            htmlType="reset"
+            style={{ marginBottom: '5px', border: 'solid black thin' }}>
             Hủy
           </Button>
         </Form.Item>
