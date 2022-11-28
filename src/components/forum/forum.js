@@ -31,7 +31,7 @@ export default function Forum() {
           Posts {
             items {
               title
-              author {
+              author {  
                 lastName
                 firstName
                 avatarUrl
@@ -50,18 +50,16 @@ export default function Forum() {
     setPosts(data.data.getClass.Posts.items);
   };
 
-  const listener = () => {
-    API.graphql(graphqlOperation(onCreatePost)).subscribe({
-      next: () => {
-        fetchPost();
-      },
-      error: (error) => console.warn(error)
-    });
-  };
+  API.graphql(graphqlOperation(onCreatePost)).subscribe({
+    next: (result) => {
+      console.log('result', result);
+      setPosts(posts.concat([result.value.data.onCreatePost]));
+    },
+    error: (error) => console.warn(error)
+  });
 
   useEffect(() => {
     fetchPost();
-    listener();
   }, []);
 
   const PostComponent = () => {

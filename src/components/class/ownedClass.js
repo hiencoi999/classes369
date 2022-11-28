@@ -12,7 +12,7 @@ import {
   useAuthenticator,
   View
 } from '@aws-amplify/ui-react';
-import { Form, Modal, Space, Spin } from 'antd';
+import { Form, Modal, Result, Space, Spin } from 'antd';
 import { API, graphqlOperation } from 'aws-amplify';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -229,6 +229,7 @@ export default function OwnedClass() {
       ) : (
         <ThemeProvider style={{ textAlign: 'center' }} theme={theme} colorMode="light">
           <Collection
+            searchNoResultsFound={<Result status="404" title="Không tìm thấy lớp nào" />}
             items={classList}
             type="list"
             direction="row"
@@ -244,7 +245,17 @@ export default function OwnedClass() {
             isSearchable="true"
             searchPlaceholder="Tìm lớp...">
             {(classObj) => (
-              <Card key={classObj.id} borderRadius="medium" width="24rem" height="12rem" variation="outlined">
+              <Card
+                key={classObj.id}
+                borderRadius="medium"
+                width="24rem"
+                height="12rem"
+                variation="outlined"
+                style={{
+                  background: 'rgb(155,217,230)',
+                  // eslint-disable-next-line no-dupe-keys
+                  background: 'radial-gradient(circle, rgba(155,217,230,1) 0%, rgba(255,255,255,1) 100%)'
+                }}>
                 <View
                   style={{
                     whiteSpace: 'nowrap',

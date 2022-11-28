@@ -12,7 +12,7 @@ code {
 }
 
 .modalStyle .ant-modal-content{
-  background-color: rgb(164, 189, 181);
+  background-color: white
 }
 
 .modalStyle .ant-modal-header{
@@ -20,5 +20,7 @@ code {
 }
 
 .inputInfo {
-  border: solid thin black;
+  border-radius: 10px;
+  border: solid thin black
 }
+

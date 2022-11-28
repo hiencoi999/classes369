@@ -5,7 +5,6 @@ import { CategoryScale, Chart as ChartJS } from 'chart.js/auto';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { useOutletContext } from 'react-router-dom';
 import './chart.css';
 moment.locale('vi');
 ChartJS.register(CategoryScale);
@@ -16,12 +15,10 @@ export default function WeatherChart() {
   const [minTemper, setMinTemper] = useState([]);
   const [rainSum, setRainSum] = useState([]);
   const [calenderUrl, setCalenderUrl] = useState('');
-  const props = useOutletContext();
 
   const fetchUserName = () => {
-    let name = props.thisUser !== undefined ? props.thisUser.firstName + ' ' + props.thisUser.lastName : '';
     setCalenderUrl(
-      `https://calendar.google.com/calendar/embed?mode=WEEK&showTz=0&showNav=1&showPrint=0&showDate=1&title=Xin chào ${name}&src=` +
+      `https://calendar.google.com/calendar/embed?mode=WEEK&&showTz=0&showNav=1&showPrint=0&showDate=1&title=Xin chào ${user.attributes.email}&src=` +
         encodeURI(user.attributes.email)
     );
   };

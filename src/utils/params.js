@@ -9,6 +9,5 @@ export const toastParams = {
   theme: 'light'
 };
 
-export const S3_PREFIX =
-  // eslint-disable-next-line no-undef
-  'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/' | process.env.REACT_APP_S3_PREFIX;
+export const S3_PREFIX = 'https://classes369-backend-storage-cb42087a151917-prod.s3.amazonaws.com/public/';
+// export const S3_PREFIX = 'https://classes369-backend-storage-cb42087a70552-staging.s3.amazonaws.com/public/';

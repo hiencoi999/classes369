@@ -1,18 +1,17 @@
 import { ClockCircleOutlined, Loading3QuartersOutlined, UserOutlined } from '@ant-design/icons';
-
 import {
-    Badge,
-    Button as AmplifyButton,
-    Card,
-    Collection,
-    Divider,
-    Flex,
-    Heading,
-    ThemeProvider,
-    useAuthenticator,
-    View
+  Badge,
+  Button as AmplifyButton,
+  Card,
+  Collection,
+  Divider,
+  Flex,
+  Heading,
+  ThemeProvider,
+  useAuthenticator,
+  View
 } from '@aws-amplify/ui-react';
-import { Spin } from 'antd';
+import { Result, Spin } from 'antd';
 import { API, graphqlOperation } from 'aws-amplify';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -149,6 +148,13 @@ export default function InvitedClass() {
       ) : (
         <ThemeProvider style={{ textAlign: 'center' }} theme={theme} colorMode="light">
           <Collection
+            searchNoResultsFound={
+              <Result
+                status="404"
+                title="Không tìm thấy lớp"
+                subTitle="Hãy thử xem lại thông báo để xem có lời mời nào không nhé"
+              />
+            }
             items={classList}
             type="list"
             direction="row"

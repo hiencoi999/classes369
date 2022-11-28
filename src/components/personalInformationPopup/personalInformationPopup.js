@@ -54,24 +54,29 @@ export default function PersonalInformationPopup(props) {
   const { user } = useAuthenticator((context) => [context.user]);
 
   const updatePersonalInformation = async (firstName, lastName, birthday, avatarUrl) => {
-    await API.graphql({
-      query: updateUser,
-      variables: {
-        input: {
-          id: user.attributes.sub,
-          email: user.attributes.email,
-          phoneNumber: user.attributes.phone_number,
-          firstName: firstName,
-          lastName: lastName,
-          birthday: birthday,
-          avatarUrl: avatarUrl
+    try {
+      await API.graphql({
+        query: updateUser,
+        variables: {
+          input: {
+            id: user.attributes.sub,
+            email: user.attributes.email,
+            phoneNumber: user.attributes.phone_number,
+            firstName: firstName,
+            lastName: lastName,
+            birthday: birthday,
+            avatarUrl: avatarUrl
+          }
         }
-      }
-    });
+      });
 
-    localStorage.removeItem('isFirstTimeLoggedIn');
-    setLoading(false);
-    setOpen(false);
+      localStorage.removeItem('isFirstTimeLoggedIn');
+      setLoading(false);
+      setOpen(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -118,7 +123,7 @@ export default function PersonalInformationPopup(props) {
             htmlType="submit"
             type="primary"
             loading={loading}
-            style={{ marginBottom: '5px', border: 'solid black thin' }}>
+            style={{ marginBottom: '5px', backgroundColor: '#005566', color: 'white', borderRadius: '10px' }}>
             Xác nhận
           </Button>
           <Button
@@ -126,7 +131,7 @@ export default function PersonalInformationPopup(props) {
             type="primary"
             danger
             htmlType="reset"
-            style={{ marginBottom: '5px', border: 'solid black thin' }}>
+            style={{ marginBottom: '5px', border: 'solid black thin', borderRadius: '10px' }}>
             Hủy
           </Button>
         </Form.Item>

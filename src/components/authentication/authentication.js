@@ -18,7 +18,6 @@ import { createUser } from '../../graphql/mutations';
 // @ts-ignore
 import logo from '../homepage/assets/logo.png';
 // @ts-ignore
-import videoBackground from './assets/background.mp4';
 I18n.putVocabularies(translations);
 I18n.setLanguage('vi');
 I18n.putVocabularies({
@@ -47,7 +46,10 @@ I18n.putVocabularies({
     Submitting: 'Đang gửi',
     'We Sent A Code': 'Chúng tôi đã gửi mã',
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.':
-      'Vui lòng kiểm tra hòm thư để lấy mã xác thực'
+      'Vui lòng kiểm tra hòm thư để lấy mã xác thực',
+    Confirming: 'Đang xác nhận',
+    'Password must have at least 8 characters': 'Mật khẩu phải có ít nhất 8 ký tự',
+    'Your passwords must match': 'Mật khẩu chưa khớp'
   }
 });
 
@@ -119,7 +121,6 @@ const components = {
       );
     }
   },
-
   ResetPassword: {
     Header() {
       const { tokens } = useTheme();
@@ -193,10 +194,6 @@ export default function AwsAuthenticator() {
     <Navigate to="/home" />
   ) : (
     <>
-      <video autoPlay muted loop id="myVideo">
-        <source src={videoBackground} type="video/mp4" />
-        Your browser does not support HTML5 video.
-      </video>
       <Authenticator components={components} formFields={formFields} className="authenticator" />
     </>
   );
